@@ -1,0 +1,197 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ЛБ15(Курсовая работа) Андреев 8К04</title>
+    <link rel = "stylesheet" href = "Style.css" />
+    <link rel = "stylesheet" href = "Tables.css" />
+  </head>
+
+  <body>
+    <form name = "products_form" class = "guest" style = "width:1000;">
+        <input type = "button" name = "properties_button" value = "Данные" />
+        <input type = "button" name = "add_button" value = "Добавить" />
+        <input type = "button" name = "edit_button" value = "Редактировать" />
+        <input type = "button" name = "select_button" value = "Выбрать всё" />
+        <input type = "button" name = "filters_button" value = "Фильтры" />
+        <input type = "button" name = "back_button" value = "Назад" />
+      <p>
+        <div class = "scrollable">
+            <table name = "productsHeader">
+                <tr class = "noSelect">
+                    <th name = "col0">Изобра<wbr>жение</th><th name = "col1">Артикул</th><th name = "col2">Назва<wbr>ние</th><th name = "col3">Произво<wbr>дитель</th><th name = "col4">Детали</th>
+                    <th name = "col5">Размер</th><th name = "col6">Форма</th><th name = "col7">Размер детали</th><th name = "col8">Возраст</th>
+                    <th name = "col9">Мате<wbr>риал</th><th name = "col10">Описа<wbr>ние</th><th name = "col11">Количес<wbr>тво</th>
+                    <th name = "col12">Место хране<wbr>ния</th><th name = "col13">Стои<wbr>мость</th>
+                </tr>
+            </table>
+            <table name = "products"></table>
+        </div>
+      </p>
+    </form>
+
+    <form name = properties_form style = "position: absolute; background-color: white; border:solid 1px gray; border-radius: 2px; width: 350px;">
+        <table name = properties style = "width:350px">
+        <tr>
+            <td><label><input type = "checkbox" name = "image" value = "col0" checked/>Изображение</label></td>
+            <td><label><input type = "checkbox" name = "article" value = "col1" checked/>Артикул</label></td>
+        </tr>
+        <tr>
+            <td><label><input type = "checkbox" name = "name" value = "col2" checked/>Название</label></td>
+            <td><label><input type = "checkbox" name = "brand" value = "col3" checked/>Производитель</label></td>
+        </tr>
+        <tr>
+            <td><label><input type = "checkbox" name = "numberOfPieces" value = "col4" checked/>Детали</label></td>
+            <td><label><input type = "checkbox" name = "size" value = "col5" checked/>Размер</label></td>
+        </tr>
+        <tr>
+            <td><label><input type = "checkbox" name = "shape" value = "col6" />Форма</label></td>
+            <td><label><input type = "checkbox" name = "pieceSize" value = "col7" />Размер детали</label></td>
+        </tr>
+        <tr>
+            <td><label><input type = "checkbox" name = "age" value = "col8" />Возраст</label></td>
+            <td><label><input type = "checkbox" name = "material" value = "col9" />Материал</label></td>
+        </tr>
+        <tr>
+            <td><label><input type = "checkbox" name = "description" value = "col10"/>Описание</label></td>
+            <td><label><input type = "checkbox" name = "amount" value = "col11" checked/>Количество</label></td>
+        </tr>
+        <tr>
+            <td><label><input type = "checkbox" name = "storage" value = "col12"/>Место хранения</label></td>
+            <td><label><input type = "checkbox" name = "price" value = "col13" checked/>Стоимость</label></td>
+        </tr>
+        </table>
+    </form>
+
+    <form name = "add_product_form">
+        <input type = "button" name = "add_button" value = "Добавить" />
+        <input type = "button" name = "back_button" value = "Назад" />
+        <p>
+            <div class = "addPuzzleBox" name = "box1">
+                <div><div style="border:solid thin gray; border-radius: 2px;height:133px; width:200px; display:inline-block">
+                    <img name = "uploadedImage"></div>
+                <input type = "file" name = "imageFile" style = "vertical-align:65px; width:290px; display:inline-block;"/></div>
+                <p><input type = "text" name = "article" placeholder = "Артикул" title = "Артикул"/></p>
+                <p><input type = "text" name = "name" placeholder = "Название" title = "Название"/></p>
+                <p><input type = "text" name = "brand" placeholder = "Производитель" title = "Производитель"/></p>
+            </div>
+            <div class = "addPuzzleBox" name = "box2">
+                <p><input type = "number" name = "numberOfPieces" placeholder = "Количество деталей" title = "Количество деталей"/></p>
+                <p><input type = "number" name = "width" placeholder = "Ширина" style = "width: 49.6%" title = "Ширина"/>
+                <input type = "number" name = "height" placeholder = "Высота" style = "width: 49.6%" title = "Высота"/></p>
+                <p><input type = "text" name = "shape" placeholder = "Форма" title = "Форма"/></p>
+                <p><input type = "number" name = "pieceWidth" placeholder = "Ширина детали" style = "width: 49.6%" title = "Ширина детали"/>
+                <input type = "number" name = "pieceHeight" placeholder = "Высота детали" style = "width: 49.6%" title = "Высота детали"/></p>
+            </div>
+            <div class = "addPuzzleBox" name = "box3">
+                <p><input type = "number" name = "age" placeholder = "Возраст" title = "Возраст"/></p>
+                <p><input type = "text" name = "material" placeholder = "Материал" title = "Материал"/></p>
+                <textarea name = "description" placeholder = "Описание" title = "Описание" style = "height:60%; width:100%; resize: none; border: solid thin gray; border-radius: 2px; font-size: large;"></textarea>
+            </div>
+            <div class = "addPuzzleBox" name = "box4">
+                <p><input type = "number" name = "amount" placeholder = "Количество" title = "Количество"/></p>
+                <p><input type = "text" name = "storage" placeholder = "Место хранения" title = "Место хранения"/></p>
+                <p><input type = "number" name = "price" placeholder = "Стоимость" title = "Стоимость"/></p>
+                <p><input type = "number" name = "discount" placeholder = "Скидка" title = "Скидка"/></p>
+            </div>
+            <div class = "switchButtons">
+                <p><input type = "button" class = "addPuzzleButtonChangePage chosen" id = 0 value = "1"/></p>
+                <p><input type = "button" class = "addPuzzleButtonChangePage" id = 1 value = "2"/></p>
+                <p><input type = "button" class = "addPuzzleButtonChangePage" id = 2 value = "3"/></p>
+                <p><input type = "button" class = "addPuzzleButtonChangePage" id = 3 value = "4"/></p>
+            </div>
+        </p>
+    </form>
+
+    <form name = "edit_products_form">
+        <input type = "button" name = "edit_button" value = "Сохранить" />
+        <input type = "button" name = "delete_button" value = "Удалить" />
+        <input type = "button" name = "back_button" value = "Назад" />
+        <p>
+            <div class = "editPuzzleBox" name = "box1">
+                <div><div style="border:solid thin gray; border-radius: 2px;height:133px; width:200px; display:inline-block">
+                    <img name = "uploadedImageEdit"></div>
+                <input type = "file" name = "imageFile" style = "vertical-align:65px; width:290px; display:inline-block;"/></div>
+                <p>Артикул:<input type = "text" name = "Article" title = "Артикул"/></p>
+                <p>Название:<input type = "text" name = "Name" title = "Название"/></p>
+                <p>Производитель:<input type = "text" name = "Brand" title = "Производитель"/></p>
+            </div>
+            <div class = "editPuzzleBox" name = "box2">
+                <p>Количество деталей:<input type = "number" name = "Number of pieces" title = "Количество деталей"/></p>
+                <p>Ширина и высота:<br><input type = "number" name = "Width" style = "width: 49.6%" title = "Ширина"/>
+                <input type = "number" name = "Height" style = "width: 49.6%" title = "Высота"/></p>
+                <p>Форма:<input type = "text" name = "Shape" title = "Форма"/></p>
+                <p>Ширина и высота детали:<br><input type = "number" name = "Piece width" style = "width: 49.6%" title = "Ширина детали"/>
+                <input type = "number" name = "Piece height" style = "width: 49.6%" title = "Высота детали"/></p>
+            </div>
+            <div class = "editPuzzleBox" name = "box3">
+                <p>Возраст:<input type = "number" name = "Age" title = "Возраст"/></p>
+                <p>Материал:<input type = "text" name = "Material" title = "Материал"/></p>
+                <p>Описание:<textarea name = "Description" title = "Описание" style = "height:200px; width:100%; resize: none; border: solid thin gray; border-radius: 2px; font-family: 'Arial'; font-size: 17.5;"></textarea></p>
+            </div>
+            <div class = "editPuzzleBox" name = "box4">
+                <p>Количество:<input type = "number" name = "Amount" title = "Количество"/></p>
+                <p>Место хранения:<input type = "text" name = "Storage" title = "Место хранения"/></p>
+                <p>Стоимость:<input type = "number" name = "Price" title = "Стоимость"/></p>
+                <p>Скидка:<input type = "number" name = "Discount" title = "Скидка"/></p>
+            </div>
+            <div class = "switchButtons">
+                <p><input type = "button" class = "editPuzzleButtonChangePage chosen" id = 0 value = "1"/></p>
+                <p><input type = "button" class = "editPuzzleButtonChangePage" id = 1 value = "2"/></p>
+                <p><input type = "button" class = "editPuzzleButtonChangePage" id = 2 value = "3"/></p>
+                <p><input type = "button" class = "editPuzzleButtonChangePage" id = 3 value = "4"/></p>
+            </div>
+        </p>
+    </form>
+
+    <form name = "filters_form">
+        <input type = "button" name = "apply_button" value = "Применить" />
+        <input type = "button" name = "reset_button" value = "Сбросить" />
+        <input type = "button" name = "back_button" value = "Назад" />
+        <p>
+            <div class = "filtersBox" name = "box1">
+                <p>Артикул:<input type = "text" name = "`Article` like " title = "Артикул" placeholder = "any"/></p>
+                <p>Название:<input type = "text" name = "`Name` like " title = "Название" placeholder = "any"/></p>
+                <p>Производитель:<input type = "text" name = "`Brand` like " title = "Производитель" placeholder = "any"/></p>
+                <p>Количество деталей:<br><input type = "number" name = "`Number of pieces` >= " title = "Количество деталей" style = "width: 47.7%" placeholder = "any"/>
+                — <input type = "number" name = "`Number of pieces` <= " title = "Количество деталей" style = "width: 47.7%" placeholder = "any"/></p>
+            </div>
+            <div class = "filtersBox" name = "box2">
+                <p>Ширина:<br><input type = "number" name = "`Width` >=" style = "width: 47.7%" title = "Ширина" placeholder = "any"/>
+                — <input type = "number" name = "`Width` <= " style = "width: 47.7%" title = "Ширина" placeholder = "any"/></p>
+                <p>Высота:<br><input type = "number" name = "`Height` >= " style = "width: 47.7%" title = "Высота" placeholder = "any"/>
+                — <input type = "number" name = "`Height` <= " style = "width: 47.7%" title = "Высота" placeholder = "any"/></p>
+                <p>Ширина детали:<br><input type = "number" name = "`Piece width` >= " style = "width: 47.7%" title = "Ширина детали" placeholder = "any"/>
+                — <input type = "number" name = "`Piece width` <= " style = "width: 47.7%" title = "Ширина детали" placeholder = "any"/></p>
+                <p>Высота детали:<br><input type = "number" name = "`Piece height` >= " style = "width: 47.7%" title = "Высота детали" placeholder = "any"/>
+                — <input type = "number" name = "`Piece height` <=" style = "width: 47.7%" title = "Высота детали" placeholder = "any"/></p>
+            </div>
+            <div class = "filtersBox" name = "box3">
+                <p>Форма:<input type = "text" name = "`Shape` like " title = "Форма" placeholder = "any"/></p>
+                <p>Возраст:<br><input type = "number" name = "`Age` >= " title = "Возраст" style = "width: 47.7%" placeholder = "any"/>
+                — <input type = "number" name = "`Age` <= " title = "Возраст" style = "width: 47.7%" placeholder = "any"/></p>
+                <p>Материал:<input type = "text" name = "`Material` like " title = "Материал" placeholder = "any"/></p>
+                <p>Описание:<input type = "text" name = "`Description` like " title = "Описание" placeholder = "any"/></p>
+            </div>
+            <div class = "filtersBox" name = "box4">
+                <p>Количество:<br><input type = "number" name = "`Amount` >= " title = "Количество" style = "width: 47.7%" placeholder = "any"/>
+                — <input type = "number" name = "`Amount` <= " title = "Количество" style = "width: 47.7%" placeholder = "any"/></p>
+                <p>Место хранения:<input type = "text" name = "`Storage` like " title = "Место хранения" placeholder = "any"/></p>
+                <p>Стоимость:<br><input type = "number" name = "`Price` >= " title = "Стоимость" style = "width: 47.7%" placeholder = "any"/>
+                — <input type = "number" name = "`Price` <= " title = "Стоимость" style = "width: 47.7%" placeholder = "any"/></p>
+                <p>Скидка:<br><input type = "number" name = "`Discount` >= " title = "Скидка" style = "width: 47.7%" placeholder = "any"/>
+                — <input type = "number" name = "`Discount` <= " title = "Скидка" style = "width: 47.7%" placeholder = "any"/></p>
+            </div>
+            <div class = "switchButtons">
+                <p><input type = "button" class = "filtersButtonChangePage chosen" id = 0 value = "1"/></p>
+                <p><input type = "button" class = "filtersButtonChangePage" id = 1 value = "2"/></p>
+                <p><input type = "button" class = "filtersButtonChangePage" id = 2 value = "3"/></p>
+                <p><input type = "button" class = "filtersButtonChangePage" id = 3 value = "4"/></p>
+            </div>
+        </p>
+    </form>
+
+    <script src = "functions.js"></script>
+    <script src = "products.js"></script>
+
+    </body>
+</html>

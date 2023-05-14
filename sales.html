@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ЛБ15(Курсовая работа) Андреев 8К04</title>
+    <link rel = "stylesheet" href = "Style.css" />
+  </head>
+
+  <body>
+    <form name = "sales_form">
+        <input type = "text" name = "search" list = "articles" style = "width: 180px"/>
+        <datalist id = "articles"></datalist>
+        <input type = "button" name = "add_button" value = "Добавить" />
+        <input type = "button" name = "delete_button" value = "Удалить" />
+        <input type = "button" name = "sale_button" value = "Оформить" />
+        <input type = "button" name = "back_button" value = "Назад" />
+      <p>
+        <select name = "select" multiple size = 10>
+        </select>
+      </p>
+      <input type = "text" name = "promocode" placeholder = "Промокод"/>
+      <a style = "font-family: 'Arial'; font-size: 17.5;">Итого: <output name = "total"></output></a>
+    </form>
+
+    <script src = "functions.js"></script>
+    <script src = "sales.js"></script>
+
+    </body>
+</html>

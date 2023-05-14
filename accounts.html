@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ЛБ15(Курсовая работа) Андреев 8К04</title>
+    <link rel = "stylesheet" href = "Style.css" />
+  </head>
+
+  <body>
+    <form name = "accounts_form">
+        <input type = "button" name = "add_button" value = "Добавить" />
+        <input type = "button" name = "edit_button" value = "Редактировать" />
+        <input type = "button" name = "back_button" value = "Назад" />
+      <p>
+        <select name = "select" size = 10>
+        </select>
+      </p>
+    </form>
+
+    <form name = "add_account_form">
+        <input type = "button" name = "add_button" value = "Добавить" />
+        <input type = "button" name = "back_button" value = "Назад" />
+      <p><input type = "text" name = "login" placeholder = "Логин" /></p>
+      <p><input type = "text" name = "password" placeholder = "Пароль" /></p>
+      <p><select name = "role" style = "width: 400px; font-family: Arial; font-size: 17; height: 30px;">
+            <option value = "employee">Сотрудник</option>
+            <option value = "administrator">Администратор</option>
+            </select>
+      </p>
+    </form>
+
+    <form name = "edit_account_form">
+        <input type = "button" name = "edit_button" value = "Сохранить" style = "width: 130.65px;" />
+        <input type = "button" name = "delete_button" value = "Удалить" style = "width: 130.65px;" />
+        <input type = "button" name = "back_button" value = "Назад" style = "width: 130.65px;" />
+        <p><input type = "text" name = "login" placeholder = "Логин" /></p>
+        <p><input type = "text" name = "password" placeholder = "Пароль" /></p>
+        <p><select name = "role" style = "width: 400px; font-family: Arial; font-size: 17; height: 30px;">
+          <option value = "employee">Сотрудник</option>
+          <option value = "administrator">Администратор</option>
+          </select>
+        </p>
+    </form>
+
+    <script src = "functions.js"></script>
+    <script src = "accounts.js"></script>
+
+    </body>
+</html>

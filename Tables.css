@@ -1,0 +1,100 @@
+table[name = "properties"]
+{
+  border-spacing: 0 0.1em;
+  width: 100%;
+  table-layout: fixed;
+  cursor: default;
+  user-select: none;
+}
+
+table[name = "products"]
+{
+  text-align: center;
+  border-spacing: 0 0.3em;
+  width: 99%;
+  table-layout: fixed;
+  cursor: default;
+  user-select: none;
+  margin-inline: auto;
+}
+
+table[name = "productsHeader"]
+{
+  text-align: center;
+  width: 100%;
+  table-layout: fixed;
+  cursor: default;
+  user-select: none;
+  background-color: white;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+div * th
+{
+  background-color: white;
+  overflow: hidden;
+}
+
+div * td
+{
+  overflow: hidden;
+}
+
+table[name = "products"] * tr
+{
+  background-color: white;
+  position: sticky;
+  top: 1;
+  box-shadow: 0px 0px 0px 1px gray;
+  border-radius: 2px;
+}
+
+tr * div:hover
+{
+  animation: showFull 2s;
+  animation-fill-mode: forwards;
+}
+
+tr * div::-webkit-scrollbar {
+  width: 2px;
+}
+tr * div::-webkit-scrollbar-track {
+  background: none;
+}
+tr * div::-webkit-scrollbar-thumb {
+  background-color: gray;
+}
+tr.select * div::-webkit-scrollbar-thumb {
+  background-color: white;
+}
+
+tr * div
+{
+  overflow: hidden;
+  scrollbar-gutter: stable;
+  scrollbar-width: 3px;
+  scrollbar-color: gray;
+}
+
+@keyframes showFull
+{
+  100%{ white-space: unset; overflow-y:scroll;}
+}
+
+table[name = "products"] * tr.select
+{
+  background-color: rgb(30, 144, 255);
+  color: white;
+  box-shadow: 0px 0px 0px 1px rgb(30, 144, 255);
+}
+
+.scrollable
+{
+  height: 312.6px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border: solid 1px gray;
+  border-radius: 2px;
+}

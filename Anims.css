@@ -1,0 +1,56 @@
+.shake
+{
+  animation: shake .3s;
+}
+  
+@keyframes shake
+{
+  25%{ transform: translateX(4px) }
+  50%{ transform: translateX(-4px) }
+  75%{ transform: translateX(4px) }
+}
+
+.moveRight
+{
+  transform: translate(300%, 0);
+  opacity: 0;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.moveCentre
+{
+  transform: translate(0, 0);
+  opacity: 1;
+  cursor: default;
+  pointer-events: all;
+  transition: 0.7s cubic-bezier(0.68, -0.6, 0.32, 1.6) 0s;
+}
+
+.moveDown
+{
+  transform: translate(0, 100%);
+  transition: 0.7s cubic-bezier(0.68, -0.6, 0.32, 1.6) 0s;
+}
+
+form
+{
+  animation: showLeft 0.5s;
+}
+
+@keyframes showLeft
+{
+  from {left:-100%;}
+  to {left:0;}
+}
+
+.fade
+{
+  animation: fade 0.25s;
+}
+
+@keyframes fade
+{
+  from {opacity: 1;}
+  to {opacity: 0;}
+}

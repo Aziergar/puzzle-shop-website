@@ -1,0 +1,247 @@
+form
+{
+  margin-inline: auto;
+  position: relative;
+  top: 50%;
+  transform: translate(0, -50%);
+  animation: showLeft 0.5s;
+}
+
+input
+{
+  height: 30px;
+  font-size: 17;
+}
+
+input[type = "text"], input[type = "number"]
+{
+  width: 400px;
+}
+
+input[type = "button"]
+{
+  width: 197.67px;
+}
+
+input[type = "password"]
+{
+  width: 400px;
+}
+
+input[type = "checkbox"]
+{
+  vertical-align: -10px;
+}
+
+label
+{
+  user-select: none;
+  font-size: 19
+}
+
+select
+{
+  width: 600px;
+  font-size: 19;
+  font-family: monospace;
+}
+
+p
+{
+  font-size: large;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+
+.shake
+{
+  animation: shake .3s;
+}
+  
+@keyframes shake
+{
+  25%{ transform: translateX(4px) }
+  50%{ transform: translateX(-4px) }
+  75%{ transform: translateX(4px) }
+}
+
+.moveRight
+{
+  transform: translate(300%, 0);
+  opacity: 0;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.moveLeft
+{
+  transform: translate(-200%, -50%);
+  opacity: 0;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.moveCentre
+{
+  transform: translate(0, 0);
+  opacity: 1;
+  cursor: default;
+  pointer-events: all;
+  transition: 0.7s cubic-bezier(0.68, -0.6, 0.32, 1.6) 0s;
+}
+
+.moveDown3x
+{
+  transform: translate(0, 335%);
+  transition: 0.7s cubic-bezier(0.68, -0.6, 0.32, 1.6) 0s;
+}
+
+.moveDown1x
+{
+  transform: translate(0, 113%);
+  transition: 0.7s cubic-bezier(0.68, -0.6, 0.32, 1.6) 0s;
+}
+
+@keyframes showLeft
+{
+  from {left:-100%;}
+  to {left:0;}
+}
+
+.fade
+{
+  animation: fade 0.25s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fade
+{
+  from {opacity: 1;}
+  to {opacity: 0;}
+}
+
+.guest > input[type = "button"]
+{
+  width: 33%;
+}
+
+.guest > input[name = "add_button"], .guest > [name = "edit_button"], .guest > [name = "select_button"]
+{
+  display: none;
+}
+
+.employee > input[type = "button"]
+{
+  width: 16.3%;
+}
+
+.employee > input[name = "add_button"], .employee > [name = "edit_button"], .employee > [name = "select_button"]
+{
+  display: inline-block;
+}
+
+form[name = "sales_form"] > input[type = "button"]
+{
+  width: 16.75%;
+}
+
+form[name = "add_product_form"]
+{
+  height: 300px;
+  width: 610px;
+}
+
+form[name = "edit_products_form"]
+{
+  height: 350px;
+  width: 610px;
+}
+
+form[name = "filters_form"]
+{
+  height: 350px;
+  width: 610px;
+}
+
+form[name = "add_product_form"] > input[type = "button"]
+{
+  width: 49.65%;
+}
+
+form[name = "edit_products_form"] > input[type = "button"], form[name = "edit_products_form"] > input[type = "button"]
+{
+  width: 32.89%;
+}
+
+.addPuzzleBox, .editPuzzleBox, .filtersBox
+{
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  justify-content: space-around;
+  height: 100%;
+  width: 98%;
+  border: solid 1px gray;
+  border-radius: 2px;
+  padding: 1%;
+}
+
+.addPuzzleBox[name = "box1"], .editPuzzleBox[name = "box1"], .filtersBox[name = "box1"]
+{
+  display: flex;
+}
+
+.addPuzzleBox * input:not(input[type = "file"]), .editPuzzleBox * input:not(input[type = "file"]), .filtersBox * input:not(input[type = "file"])
+{
+  width:100%;
+  border: solid thin gray;
+  border-radius: 2px;
+}
+
+.switchButtons
+{
+  height: 314px;
+  width: 20px;
+  position: absolute;
+  top: 33.5px;
+  right: -21px;
+}
+
+form[name = "edit_products_form"] > div[class = "switchButtons"], form[name = "filters_form"] > div[class = "switchButtons"]
+{
+  height: 364px;
+}
+
+.switchButtons * input[type = "button"]
+{
+  width: 100%;
+  height: 25%;
+  border-radius: 0;
+  border: solid thin gray;
+  transition: 0.1s;
+}
+
+.switchButtons > p
+{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.switchButtons * input[type = "button"]:hover
+{
+  width:120%;
+}
+
+.switchButtons * input[type = "button"].chosen
+{
+  width: 250%;
+}
+
+img
+{
+  margin-inline: auto;
+  position: relative;
+  display: block;
+  width: auto;
+  height: 100%;
+}

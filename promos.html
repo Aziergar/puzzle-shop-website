@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ЛБ15(Курсовая работа) Андреев 8К04</title>
+    <link rel = "stylesheet" href = "Style.css" />
+  </head>
+
+  <body>
+    <form name = "promos_form">
+        <input type = "button" name = "add_button" value = "Добавить" />
+        <input type = "button" name = "edit_button" value = "Редактировать" />
+        <input type = "button" name = "back_button" value = "Назад" />
+      <p>
+        <select name = "select" multiple size = 10>
+        </select>
+      </p>
+    </form>
+
+    <form name = "add_promo_form">
+        <input type = "button" name = "add_button" value = "Добавить" />
+        <input type = "button" name = "back_button" value = "Назад" />
+        <p><input type = "text" name = "promocode" placeholder = "Промокод" /></p>
+        <p><input type = "number" name = "discount" placeholder = "Скидка" /></p>
+        <p><input type = "number" name = "number_of_discounts" placeholder = "Кол-во товаров, на которые действует скидка" /></p>
+        <p><input type = "number" name = "action_time" placeholder = "Время действия в часах" /></p>
+        <p><input type = "number" name = "uses" placeholder = "Кол-во использований (-1 — без ограничений)" /></p>
+        <p><input type = "number" name = "number_of_promocodes" placeholder = "Кол-во промокодов" /></p>
+    </form>
+
+    <form name = "edit_promos_form">
+        <input type = "button" name = "edit_button" value = "Сохранить" style = "width: 130.65px;" />
+        <input type = "button" name = "delete_button" value = "Удалить" style = "width: 130.65px;" />
+        <input type = "button" name = "back_button" value = "Назад" style = "width: 130.65px;" />
+        <p><input type = "text" name = "promocode" placeholder = "Промокод" title = "Промокод"/></p>
+        <p><input type = "number" name = "discount" placeholder = "Скидка" title = "Скидка"/></p>
+        <p><input type = "number" name = "number_of_discounts" placeholder = "Кол-во товаров, на которые действует скидка" title = "Кол-во товаров, на которые действует скидка"/></p>
+        <p><input type = "number" name = "action_time" placeholder = "Время действия в часах" title = "Время действия в часах"/></p>
+        <p><input type = "number" name = "uses" placeholder = "Кол-во использований (-1 — без ограничений)" title = "Кол-во использований (-1 — без ограничений)"/></p>
+    </form>
+
+    <script src = "functions.js"></script>
+    <script src = "promos.js"></script>
+
+    </body>
+</html>
