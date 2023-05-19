@@ -20,20 +20,32 @@ Website for the administration of the puzzle store. The site provides the follow
     <li><strong>Node.js</strong></li>
 </ul>
 
-<h2 align = "center">Interface</h2>
-<p>
-The interface allows you to create blocks that store information about objects. The blocks are located in a space where the user can move, change the position of the blocks and change the scale of the "board". Blocks of objects can be activated and deactivated. The contents of the board can be saved and loaded (the location and name of the file is selected by the user).
+<h2 align = "center">Puzzles</h2>
+<p align = "center">
+  <img width = "1000px" src = "https://github.com/Aziergar/puzzle-shop-website/assets/107803390/b34ffdd0-ac03-4c05-ad6a-1b7ab8c6f7c3">
 </p>
 
+<h2 align = "center">Adding a puzzle</h2>
 <p align = "center">
-  <img width = "400px" src = "https://github.com/Aziergar/raycasting-graphic-editor/assets/107803390/770c4d73-e343-43cd-9f45-4a15b4f04f12">
+  <img width = "600px" src = "https://github.com/Aziergar/puzzle-shop-website/assets/107803390/a6d63a18-6816-4a98-8193-9c00b6d7d391">
 </p>
 
-<h2 align = "center">Raycasting</h2>
-
-The rendering process does not use a graphics card, only processor cores, so the image is created for sometimes a considerable time.
-You can choose in which form the image created by the program will be presented - in the form of ACII characters in the Windows console or in PNG image format.
+<h2 align = "center">Selecting filters</h2>
 <p align = "center">
-  <img width = "400px" src = "https://github.com/Aziergar/raycasting-graphic-editor/assets/107803390/498b1fd6-8d95-46d5-8c6c-87705ab54a9c">
-  <img width = "400px" height = "350px" src = "https://github.com/Aziergar/raycasting-graphic-editor/assets/107803390/9940c2e4-88d2-4dca-8723-4b8f5b3b3051">
+  <img width = "600px" src = "https://github.com/Aziergar/puzzle-shop-website/assets/107803390/fab8b392-0029-446f-9608-6a4e5e417fc7">
+</p>
+
+<h2 align = "center">Accounts</h2>
+<p align = "center">
+  <img width = "600px" src = "https://github.com/Aziergar/puzzle-shop-website/assets/107803390/8364ed0c-c676-4281-bc03-173b20e7695e">
+</p>
+
+<h2 align = "center">Promo codes</h2>
+<p align = "center">
+  <img width = "600px" src = "https://github.com/Aziergar/puzzle-shop-website/assets/107803390/4c43d56c-1ad9-4964-bb61-25df31407e06">
+</p>
+
+<h2 align = "center">Making a sale</h2>
+<p align = "center">
+  <img width = "600px" src = "https://github.com/Aziergar/puzzle-shop-website/assets/107803390/956336ed-54cb-45b4-8bf4-47e0872add2c">
 </p>
