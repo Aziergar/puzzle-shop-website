@@ -2,13 +2,13 @@
 Website for the administration of the puzzle store. The site provides the following functionality:
 <ul>
     <li>Entering puzzles for sale into the database and deleting the sold ones;</li>
-    <li>View the characteristics of the puzzles (storage location, name, manufacturer, number of parts, etc.);</li>
+    <li>View the characteristics of the puzzles (storage location, name, brand, number of parts, etc.);</li>
     <li>Search for puzzles using a filter system (by name, cost, etc.);</li>
     <li>Separation of the system's capabilities by access levels;</li>
-    <li>Editing the properties of puzzles selecting them using filters or manually.</li>
-    <li>Generate promo codes</li>
-    <li>Make changes to the account database</li>
-    <li>Make sales of puzzles using promo codes and calculating the cost</li>
+    <li>Editing the properties of puzzles selecting them using filters or manually;</li>
+    <li>Generate promo codes;</li>
+    <li>Make changes to the account database;</li>
+    <li>Make sales of puzzles using promo codes and calculating the cost.</li>
 </ul>
 
 <h2 align = "center">Instruments</h2>
