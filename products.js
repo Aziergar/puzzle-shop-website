@@ -9,7 +9,7 @@ edit_form.style.display = "none";
 filters.style.display = "none";
 properties.classList.add("moveLeft");
 
-let filters_data = JSON.parse(localStorage.filters);
+let filters_data = localStorage.filters ? JSON.parse(localStorage.filters) : [[],[]];
 
 async function update(table, filters)
 {
