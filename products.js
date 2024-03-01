@@ -9,7 +9,7 @@ edit_form.style.display = "none";
 filters.style.display = "none";
 properties.classList.add("moveLeft");
 
-let filters_data = localStorage.filters ? JSON.parse(localStorage.filters) : [[],[]];
+let filters_data = localStorage.filters ? new Map(JSON.parse(localStorage.filters)) : new Map();
 
 async function update(table, filters)
 {
@@ -17,7 +17,7 @@ async function update(table, filters)
     let puzzles = [];
     options = {
         method: "POST",
-        body: JSON.stringify(filters)
+        body: JSON.stringify(Array.from(filters.entries()))
     };
     await fetch("http://localhost:3000/getPuzzles", options)
         .then( response => response.json() )
@@ -44,7 +44,7 @@ async function addPuzzle(puzzle)
 {
     options = {
         method: "POST",
-        body: JSON.stringify(puzzle)
+        body: JSON.stringify({access: localStorage.role, puzzle: puzzle})
     };
     await fetch("http://localhost:3000/addPuzzle", options )
         .then( response => response.text() )
@@ -58,7 +58,7 @@ async function editPuzzles(data)
 {
     options = {
         method: "POST",
-        body: JSON.stringify(data)
+        body: JSON.stringify({access: localStorage.role, data: data})
     };
     await fetch("http://localhost:3000/editPuzzles", options )
         .then( response => response.text() )
@@ -72,7 +72,7 @@ async function deletePuzzles(data)
 {
     options = {
         method: "POST",
-        body: JSON.stringify(data)
+        body: JSON.stringify({access: localStorage.role, data: data})
     };
     await fetch("http://localhost:3000/deletePuzzles", options )
         .then( response => response.text() )
@@ -86,7 +86,7 @@ function checkRole(roleCode)
 {
     var options = {
         method: "POST",
-        body: roleCode
+        body: JSON.stringify(roleCode)
     };
     fetch("http://localhost:3000/checkRole", options )
         .then( response => response.text() )
@@ -105,9 +105,9 @@ function checkRole(roleCode)
         });
 }
 
-function getCell(value, col)
+function getCell(value, name)
 {
-    let htmlString = "<td name = 'col" + col + "'><div style = 'height: 70px'>" + value + "</div></td>";
+    let htmlString = "<td name = '" + name + "'><div style = 'height: 70px'>" + value + "</div></td>";
     return htmlString;
 }
 
@@ -123,14 +123,18 @@ function addRow(table, data)
         {
             if(data[cell] == null) data[cell] = "Нет данных";
             let value = data[cell].toString();
-            if (cell == "Age") value += "+";
-            else if(cell == "Image") value = "<img src = '" + value + "'>";
-            else if(cell == "Width") value = countSize(data["Width"], data["Height"]);
-            else if(cell == "Piece width") value = countSize(data["Piece width"], data["Piece height"]);
-            else if(cell == "Price") value = countPrice(data["Price"], data["Discount"]);
-            if(!["Height", "Piece height", "Discount"].includes(cell))
+            if (cell == "age") value += "+";
+            else if(cell == "image_name") value = "<img src = '" + value + "'>";
+            else if(cell == "width") value = countSize(data["width"], data["height"]);
+            else if(cell == "piece_width") value = countSize(data["piece_width"], data["piece_height"]);
+            else if(cell == "price") value = countPrice(data["price"], data["discount"]);
+            if(!["height", "piece_height", "discount"].includes(cell))
             {
-                row = row.concat(getCell(value, index));
+                cell = cell == "image_name"  ? "image"
+                     : cell == "width"       ? "size"
+                     : cell == "piece_width" ? "piece_size"
+                     : cell;
+                row = row.concat(getCell(value, cell));
                 index++;
             }
         })
@@ -156,7 +160,7 @@ function setSelect(form)
 
 function cellDisplay(element, display)
 {
-    Array.from(document.getElementsByName(element.value)).forEach( cell =>
+    Array.from(form.querySelectorAll(`[name = ${element.name}]`)).forEach( cell =>
     {
         cell.style.display = display;
     });
@@ -312,20 +316,24 @@ form.filters_button.addEventListener("click", function()
     properties.style.transition = "0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6) 0s";
     changeAddProductBoxButton("filtersButtonChangePage", 0);
     addProductChangePage("filtersBox", 0);
-    filters_data[0].forEach((element, i) =>
+    for(let pair of filters_data)
     {
-        document.getElementsByName(element)[0].value = filters_data[1][i];
-    });
+        document.getElementsByName(pair[0])[0].value = pair[1];
+    }
 });
 
 add_form.add_button.addEventListener("click", async function()
 {
-    let puzzle = [localStorage.role, document.getElementsByName("uploadedImage")[0].src];
+    let puzzle = 
+    {
+        image: document.getElementsByName("uploadedImage")[0].src,
+        values: []
+    };
     Array.from(add_form.elements).forEach((element, i) =>
     {
-        if(element.type != "button" && i > 0)
+        if(!["button", "file"].includes(element.type) && i > 0)
         {
-            puzzle.push(element.value);
+            puzzle.values.push(element.value);
         }
     });
     if(await addPuzzle(puzzle) == "ok")
@@ -345,21 +353,23 @@ add_form.back_button.addEventListener("click", function()
 
 edit_form.edit_button.addEventListener("click", async function()
 {
-    let data = [localStorage.role, [], [], []];
-    Array.from(document.getElementsByClassName("select")).forEach(element => data[1].push(element.getElementsByTagName("td")[1].innerText));
+    let data = {
+        articles: [],
+        values: new Map()
+    };
+    Array.from(document.getElementsByClassName("select")).forEach(element => data.articles.push(element.getElementsByTagName("td")[1].innerText));
     if(edit_form.imageFile.value != "")
     {
-        data[2].push("Image");
-        data[3].push(document.getElementsByName("uploadedImageEdit")[0].src);
+        data.values.set("image", document.getElementsByName("uploadedImageEdit")[0].src);
     }
     for(let i = 4; i < edit_form.elements.length - 4; i++)
     {
         if(edit_form.elements[i].value != "")
         {
-            data[2].push(edit_form.elements[i].name);
-            data[3].push(edit_form.elements[i].value);
+            data.values.set(edit_form.elements[i].name, edit_form.elements[i].value);
         }
     }
+    data.values = Array.from(data.values.entries());
     if(await editPuzzles(data) == "ok")
     {
         update(document.getElementsByName("products")[0], filters_data);
@@ -371,8 +381,8 @@ edit_form.edit_button.addEventListener("click", async function()
 
 edit_form.delete_button.addEventListener("click", async function()
 {
-    let data = [localStorage.role, []];
-    Array.from(document.getElementsByClassName("select")).forEach(element => data[1].push(element.getElementsByTagName("td")[1].innerText));
+    let data = [];
+    Array.from(document.getElementsByClassName("select")).forEach(element => data.push(element.getElementsByTagName("td")[1].innerText));
     if(prompt('Введите "DELETE", если хотите удалить выбранные продукты') != "DELETE") shake("edit_products_form");
     else if(await deletePuzzles(data) == "ok")
     {
@@ -398,16 +408,15 @@ filters.reset_button.addEventListener("click", function()
 
 filters.apply_button.addEventListener("click", function()
 {
-    filters_data = [[],[]];
+    filters_data = new Map();
     for(let i = 3; i < filters.elements.length - 4; i++)
     {
         if(!filters.elements[i].value == "") 
         {
-            filters_data[0].push(filters.elements[i].name);
-            filters_data[1].push(filters.elements[i].value);
+            filters_data.set(filters.elements[i].name, filters.elements[i].value);
         }
     }
-    localStorage.filters = JSON.stringify(filters_data);
+    localStorage.filters = JSON.stringify(Array.from(filters_data.entries()));
     update(document.getElementsByName("products")[0], filters_data);
     goToForm(["filters_form"], ["products_form", "properties_form"]);
 });
@@ -444,22 +453,23 @@ Array.from(document.getElementsByClassName("filtersButtonChangePage")).forEach(b
     });
 });
 
-add_form.imageFile.onchange = () =>
+function imageOnChange(img, file)
 {
     reader = new FileReader();
-    reader.onload = function()
-    {
-        document.getElementsByName("uploadedImage")[0].src = reader.result;
-    };
-    reader.readAsDataURL(add_form.imageFile.files[0]);
+    reader.onload = () => img.src = reader.result;
+    reader.readAsDataURL(file);
+}
+
+add_form.imageFile.onchange = () =>
+{
+    imageOnChange(
+        document.getElementsByName("uploadedImage")[0],
+        add_form.imageFile.files[0]);
 }
 
 edit_form.imageFile.onchange = () =>
 {
-    reader = new FileReader();
-    reader.onload = function()
-    {
-        document.getElementsByName("uploadedImageEdit")[0].src = reader.result;
-    };
-    reader.readAsDataURL(edit_form.imageFile.files[0]);
+    imageOnChange(
+        document.getElementsByName("uploadedImageEdit")[0],
+        edit_form.imageFile.files[0]);
 }

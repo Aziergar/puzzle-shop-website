@@ -13,9 +13,9 @@ var logins, account;
 
 var options = {
     method: "POST",
-    body: localStorage.role
+    body: JSON.stringify(localStorage.role)
 };
-fetch("http://localhost:3000/checkRole", options )
+fetch("http://localhost:3000/checkRole", options)
     .then( response => response.text() )
     .then( response => {
         if(response != "administrator")
@@ -28,7 +28,7 @@ async function update()
 {
     options = {
         method: "POST",
-        body: localStorage.role
+        body: JSON.stringify({access: localStorage.role})
     };
     await fetch("http://localhost:3000/getAccounts", options)
         .then( response => response.json() )
@@ -64,7 +64,7 @@ async function addAccount(account)
     {
         options = {
             method: "POST",
-            body: JSON.stringify(account)
+            body: JSON.stringify({access: localStorage.role, account: account})
         };
         await fetch("http://localhost:3000/addAccount", options )
             .then( response => response.text() )
@@ -79,7 +79,7 @@ async function deleteAccount(account)
 {
     options = {
         method: "POST",
-        body: JSON.stringify(account)
+        body: JSON.stringify({access: localStorage.role, account: account})
     };
     await fetch("http://localhost:3000/deleteAccount", options )
         .then( response => response.text() )
@@ -94,7 +94,6 @@ async function editAccount(oldAccount, account)
     if(account.login.length > 0 && account.password.length > 0 && account.login.search(/\|\|/) == -1 && account.password.search(/\|\|/) == -1)
     {
         account = {
-            access: account.access,
             oldLogin: oldAccount.login,
             login: account.login,
             password: account.password,
@@ -102,7 +101,7 @@ async function editAccount(oldAccount, account)
         };
         options = {
             method: "POST",
-            body: JSON.stringify(account)
+            body: JSON.stringify({access: localStorage.role, account: account})
         };
         await fetch("http://localhost:3000/editAccount", options )
             .then( response => response.text() )
@@ -151,7 +150,6 @@ add_form.back_button.addEventListener("click", function ()
 add_form.add_button.addEventListener("click", async function ()
 {
     account = {
-        access: localStorage.role,
         login: add_form.login.value,
         password: add_form.password.value,
         role: add_form.role.value
@@ -176,7 +174,6 @@ edit_form.delete_button.addEventListener("click", function ()
 {
     var accountData = accounts.value.split("||");
     account = {
-        access: localStorage.role,
         login: accountData[0],
         password: accountData[1],
         role: accountData[2]
@@ -190,13 +187,11 @@ edit_form.edit_button.addEventListener("click", async function ()
 {
     var accountData = accounts.value.split("||");
     var oldAccount = {
-        access: localStorage.role,
         login: accountData[0],
         password: accountData[1],
         role: accountData[2]
     };
     account = {
-        access: localStorage.role,
         login: edit_form.login.value,
         password: edit_form.password.value,
         role: edit_form.role.value

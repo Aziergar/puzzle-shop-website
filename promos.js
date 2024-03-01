@@ -13,7 +13,7 @@ let promos_data = [];
 
 let options = {
     method: "POST",
-    body: localStorage.role
+    body: JSON.stringify(localStorage.role)
 };
 fetch("http://localhost:3000/checkRole", options )
     .then( response => response.text() )
@@ -28,42 +28,48 @@ async function update()
 {
     options = {
         method: "POST",
-        body: localStorage.role
+        body: JSON.stringify({ access: localStorage.role })
     };
     await fetch("http://localhost:3000/getPromos", options)
         .then( response => response.json() )
         .then( response => {
             promos.options.length = 0;
             
-            for(let i = 0; i < response.length; i++)
+            let interval = setInterval(() =>
             {
-                let spaces1 = "";
-                let promocode = response[i].promocode;
-                let discount = (-response[i].discount).toString() + "%";
-                let time = "осталось " + parseInt(response[i].action_time - (new Date() - Date.parse(response[i].creation_date)) / 3600000).toString() + "ч";
-                for(let j = 0; j < 21 - promocode.length; j++)
+                for(let i = 0; i < 100 && i < response.length; i++)
                 {
-                    if(j != 0 && j != 20 - promocode.length) spaces1 += "-";
-                    else spaces1 += " ";
+                    let spaces1 = "";
+                    let promocode = response[i].promocode;
+                    let discount = (-response[i].discount).toString() + "%";
+                    let time = "осталось " + parseInt(response[i].action_time - (new Date() - Date.parse(response[i].creation_date)) / 3600000).toString() + "ч";
+                    for(let j = 0; j < 21 - promocode.length; j++)
+                    {
+                        if(j != 0 && j != 20 - promocode.length) spaces1 += "-";
+                        else spaces1 += " ";
+                    }
+                    let spaces2 = "";
+                    for(let j = 0; j < 34 - discount.length - time.length; j++)
+                    {
+                        if(j != 0 && j != 33 - discount.length - time.length) spaces2 += "-";
+                        else spaces2 += " ";
+                    }
+                    let string = promocode + spaces1 + discount + spaces2 + time;
+                    promos.options[promos.options.length] = new Option(string, response[i].promocode + "||" + response[i].discount + "||" + 
+                        response[i].number_of_discounts + "||" + response[i].action_time + "||" + response[i].uses);
                 }
-                let spaces2 = "";
-                for(let j = 0; j < 34 - discount.length - time.length; j++)
-                {
-                    if(j != 0 && j != 33 - discount.length - time.length) spaces2 += "-";
-                    else spaces2 += " ";
-                }
-                let string = promocode + spaces1 + discount + spaces2 + time;
-                promos.options[promos.options.length] = new Option(string, response[i].promocode + "||" + response[i].discount + "||" + 
-                    response[i].number_of_discounts + "||" + response[i].action_time + "||" + response[i].uses);
-            }
+                response = response.slice(100);
+                if(response.length == 0) clearInterval(interval);
+                }, 10);
         });
 }
 
-async function addPromo(data, result)
+async function addPromo(data)
 {
+    let result;
     options = {
         method: "POST",
-        body: JSON.stringify(data)
+        body: JSON.stringify({ access: localStorage.role, data: data })
     };
     await fetch("http://localhost:3000/addPromo", options )
         .then( response => response.text() )
@@ -78,7 +84,7 @@ async function deletePromos(data)
     let result;
     options = {
         method: "POST",
-        body: JSON.stringify(data)
+        body: JSON.stringify({ access: localStorage.role, data: data })
     };
     await fetch("http://localhost:3000/deletePromos", options )
         .then( response => response.text() )
@@ -93,7 +99,7 @@ async function editPromos(data)
     let result;
     options = {
         method: "POST",
-        body: JSON.stringify(data)
+        body: JSON.stringify({ access: localStorage.role, data: data })
     };
     await fetch("http://localhost:3000/editPromos", options )
         .then( response => response.text() )
@@ -162,22 +168,17 @@ add_form.back_button.addEventListener("click", function ()
 
 add_form.add_button.addEventListener("click", async function ()
 {
-    let data = [localStorage.role];
-    Array.from(add_form.elements).forEach(element =>
-    {
-        if(element.type != "button")
-        {
-            data.push(element.value);
-        }
-    });
-    let result;
-    result = await addPromo(data, result);
+    let data = new Map();
+    Array.from(add_form.elements).filter(el => el.type != "button")
+        .forEach(promo => data.set(promo.name, promo.value));
+    result = await addPromo(Array.from(data.entries()));
     if(await result != "error")
     {
         update();
         clear("add_promo_form");
         goToForm(["add_promo_form"], ["promos_form"]);
-        if(data[6] > 1) download("promocodes" + (new Date()).toDateString().replaceAll(" ", "-").replaceAll(":", "-") + ".txt", result);
+        if(data.get("number_of_promocodes") > 1)
+            download("promocodes" + (new Date()).toDateString().replaceAll(" ", "-").replaceAll(":", "-") + ".txt", result);
     }
     else shake("add_promo_form");
 });
@@ -191,7 +192,7 @@ edit_form.back_button.addEventListener("click", function ()
 
 edit_form.delete_button.addEventListener("click", async function ()
 {
-    let data = [localStorage.role];
+    let data = [];
     getSelected().forEach(promo =>
     {
         data.push(promo.value.split("||")[0]);
@@ -206,16 +207,19 @@ edit_form.delete_button.addEventListener("click", async function ()
 
 edit_form.edit_button.addEventListener("click", async function ()
 {
-    let data = [localStorage.role, [], [], []];
-    getSelected().forEach(promo => data[1].push(promo.value.split("||")[0]));
+    let data = {
+        promos: [],
+        values: new Map()
+    };
+    getSelected().forEach(promo => data.promos.push(promo.value.split("||")[0]));
     for(let i = 3; i < edit_form.elements.length; i++)
     {
         if(edit_form.elements[i].value != "")
         {
-            data[2].push(edit_form.elements[i].name);
-            data[3].push(edit_form.elements[i].value);
+            data.values.set(edit_form.elements[i].name, edit_form.elements[i].value)
         }
     }
+    data.values = Array.from(data.values.entries());
     if(await editPromos(data) == "ok")
     {
         update();

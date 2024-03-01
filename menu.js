@@ -13,7 +13,7 @@ function checkRole(roleCode)
 {
     let options = {
         method: "POST",
-        body: roleCode
+        body: JSON.stringify(roleCode)
     };
     fetch("http://localhost:3000/checkRole", options )
         .then( response => response.text() )
